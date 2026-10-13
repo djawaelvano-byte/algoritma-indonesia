@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algoritma Indonesia — Offline</title>
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#f4f7fb,#101722);--panel:light-dark(#fff,#192333);--text:light-dark(#172033,#edf3ff);--muted:light-dark(#5d687c,#aab6ca);--border:light-dark(#dce3ed,#344258);--accent:light-dark(#2457d6,#8db0ff);--editor:light-dark(#fbfcff,#111a27);--good:light-dark(#e7f8ed,#123b2a);--bad:light-dark(#fff0ed,#4a211e)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}header{padding:22px 18px 16px;background:var(--panel);border-bottom:1px solid var(--border)}.wrap{max-width:1050px;margin:auto}h1{font-size:clamp(1.4rem,4vw,2rem);margin:0 0 6px}header p{margin:0;color:var(--muted)}main{max-width:1050px;margin:auto;padding:16px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:14px}.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;min-width:0}h2{font-size:1.05rem;margin:0 0 10px}.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}button,select{font:inherit;border:1px solid var(--border);border-radius:9px;padding:9px 12px;background:var(--panel);color:var(--text)}button{cursor:pointer}button.primary{background:var(--accent);color:white;border-color:transparent;font-weight:650}button:hover{filter:brightness(.96)}textarea{width:100%;min-height:350px;resize:vertical;background:var(--editor);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:12px;font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:4}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input[type=text]{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--editor);color:var(--text)}.hint{font-size:.86rem;color:var(--muted)}.output{white-space:pre-wrap;overflow-wrap:anywhere;min-height:120px;padding:12px;border-radius:10px;background:var(--editor);border:1px solid var(--border);font:14px/1.6 ui-monospace,monospace}.status{margin-top:9px;padding:9px 11px;border-radius:9px;background:var(--good);font-size:.9rem}.status.error{background:var(--bad)}details{margin-top:12px;border-top:1px solid var(--border);padding-top:10px}summary{cursor:pointer;font-weight:650}code{background:var(--editor);padding:1px 4px;border-radius:4px}.examples{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 12px}.examples button{font-size:.85rem}.footer{max-width:1050px;margin:0 auto;padding:0 16px 20px;color:var(--muted);font-size:.82rem}@media(max-width:760px){main{grid-template-columns:1fr;padding:12px}textarea{min-height:290px}.panel{padding:12px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Algoritma Indonesia</h1><p>Editor dan latihan pseudocode berbahasa Indonesia · dapat digunakan offline</p></div></header>
+<main>
+<section class="panel">
+<h2>1. Tulis pseudocode</h2>
+<div class="bar"><button class="primary" id="run">▶ Jalankan</button><button id="clear">Bersihkan hasil</button><button id="reset">Pulihkan contoh</button></div>
+<div class="examples"><button data-example="hello">Contoh sederhana</button><button data-example="sum">Penjumlahan</button><button data-example="if">Percabangan</button></div>
+<textarea id="editor" spellcheck="false" aria-label="Editor pseudocode">ALGORITMA Salam
+TULIS "Halo, selamat belajar algoritma!"
+TULIS "Ini berjalan tanpa internet."
+SELESAI</textarea>
+<p class="hint">Gunakan satu perintah pada setiap baris. Klik <b>Jalankan</b> untuk melihat hasil.</p>
+<details><summary>Perintah yang didukung</summary>
+<ul>
+<li><code>ALGORITMA Nama</code> dan <code>SELESAI</code> (opsional)</li>
+<li><code>TULIS "teks", variabel</code> untuk menampilkan hasil</li>
+<li><code>BACA namaVariabel</code> untuk meminta input</li>
+<li><code>namaVariabel ← ekspresi</code> atau <code>namaVariabel = ekspresi</code> untuk memberi nilai</li>
+<li><code>JIKA kondisi MAKA</code>, <code>JIKA TIDAK</code>, dan <code>AKHIR JIKA</code></li>
+<li>Ekspresi: angka, teks, +, -, *, /, perbandingan &gt; &lt; = &gt;= &lt;=, DAN, ATAU</li>
+</ul><p class="hint">Ini interpreter pembelajaran sederhana, bukan penerjemah semua bahasa pemrograman. Perulangan dan fungsi belum didukung.</p></details>
+</section>
+<section class="panel">
+<h2>2. Input program</h2>
+<div id="inputs"><p class="hint">Kolom input dari perintah BACA akan muncul di sini setelah program dijalankan.</p></div>
+<div class="bar" style="margin-top:12px"><button class="primary" id="run2">Jalankan ulang</button></div>
+<h2 style="margin-top:18px">3. Hasil program</h2>
+<div id="output" class="output" role="status">Hasil akan tampil di sini.</div>
+<div id="status" class="status">Siap. Aplikasi berjalan di perangkat ini.</div>
+</section>
+</main>
+<div class="footer">Semua proses berlangsung di halaman ini. Tidak ada akun atau koneksi internet yang diperlukan setelah file tersimpan di perangkat.</div>
+<script>
+const examples={
+hello:'ALGORITMA Salam\nTULIS "Halo, selamat belajar algoritma!"\nTULIS "Ini berjalan tanpa internet."\nSELESAI',
+sum:'ALGORITMA Penjumlahan\nBACA angka1\nBACA angka2\nhasil ← angka1 + angka2\nTULIS "Hasil penjumlahan: ", hasil\nSELESAI',
+if:'ALGORITMA CekNilai\nBACA nilai\nJIKA nilai >= 75 MAKA\n    TULIS "Keterangan: Lulus"\nJIKA TIDAK\n    TULIS "Keterangan: Belum lulus"\nAKHIR JIKA\nSELESAI'};
+const editor=document.getElementById('editor'), output=document.getElementById('output'), inputs=document.getElementById('inputs'), statusBox=document.getElementById('status');
+document.querySelectorAll('[data-example]').forEach(b=>b.addEventListener('click',()=>{editor.value=examples[b.dataset.example];output.textContent='Contoh dipilih. Tekan Jalankan.';inputs.innerHTML='<p class="hint">Jalankan program untuk menampilkan kolom input jika diperlukan.</p>';status('Contoh siap dijalankan.')}));
+document.getElementById('reset').onclick=()=>{editor.value=examples.hello;output.textContent='Hasil akan tampil di sini.';inputs.innerHTML='<p class="hint">Kolom input dari perintah BACA akan muncul di sini setelah program dijalankan.</p>';status('Contoh awal dipulihkan.')};
+document.getElementById('clear').onclick=()=>{output.textContent='';status('Hasil dibersihkan.')};
+document.getElementById('run').onclick=runProgram;document.getElementById('run2').onclick=runProgram;
+function status(msg,err=false){statusBox.textContent=msg;statusBox.className='status'+(err?' error':'')}
+function splitArgs(s){let a=[],cur='',q=false,esc=false;for(let c of s){if(c==='"'&&!esc)q=!q;if(c===','&&!q){a.push(cur.trim());cur=''}else cur+=c;esc=(c==='\\'&&!esc)}a.push(cur.trim());return a.filter(x=>x!=='')}
+function evaluate(expr,vars){expr=expr.trim().replace(/\bDAN\b/gi,'&&').replace(/\bATAU\b/gi,'||').replace(/<>/g,'!=').replace(/(?<![<>!])=(?!=)/g,'==');
+// Replace variable names with stored values, preserving quoted text.
+let parts=expr.split(/("(?:\\.|[^"\\])*")/);expr=parts.map((p,i)=>{if(i%2)return p;return p.replace(/\b[A-Za-z_][A-Za-z0-9_]*\b/g,n=>{if(['true','false','null'].includes(n))return n;if(Object.prototype.hasOwnProperty.call(vars,n))return JSON.stringify(vars[n]);throw Error('Variabel "'+n+'" belum diberi nilai.')})}).join('');
+if(!/^[\d\s.+\-*/%()!<>=&|"A-Za-z_]*$/.test(expr))throw Error('Ekspresi berisi karakter yang belum didukung.');
+return Function('"use strict"; return ('+expr+');')();}
+function runProgram(){try{const lines=editor.value.split(/\r?\n/).map((raw,i)=>({raw:raw.trim(),n:i+1})).filter(x=>x.raw&&!x.raw.startsWith('#')&&!x.raw.startsWith('//'));let vars={},out=[],needed=[],pc=0,steps=0,stack=[],skip=false;
+// First pass: collect BACA variables to create input controls.
+for(const l of lines){let m=l.raw.match(/^BACA\s+([A-Za-z_][\w]*)$/i);if(m&&!needed.includes(m[1]))needed.push(m[1]);}
+inputs.innerHTML='';if(needed.length){let note=document.createElement('p');note.className='hint';note.textContent='Isi nilai untuk setiap perintah BACA:';inputs.appendChild(note);needed.forEach(name=>{let lab=document.createElement('label');lab.textContent=name;let inp=document.createElement('input');inp.type='text';inp.id='inp_'+name;inp.placeholder='Masukkan nilai '+name;inputs.appendChild(lab);inputs.appendChild(inp)})}else inputs.innerHTML='<p class="hint">Program ini tidak membutuhkan input.</p>';
+// Parse control blocks and match JIKA/JIKA TIDAK/AKHIR JIKA.
+let blocks=[],ifMap={};lines.forEach((l,i)=>{if(/^JIKA\s+.+\s+MAKA$/i.test(l.raw))blocks.push({i,elseAt:-1,end:-1});else if(/^JIKA TIDAK$/i.test(l.raw)){if(!blocks.length)throw Error('Baris '+l.n+': JIKA TIDAK tanpa JIKA.');blocks[blocks.length-1].elseAt=i}else if(/^AKHIR JIKA$/i.test(l.raw)){if(!blocks.length)throw Error('Baris '+l.n+': AKHIR JIKA tanpa JIKA.');let b=blocks.pop();b.end=i;ifMap[b.i]=b;if(b.elseAt>=0)ifMap[b.elseAt]=b;ifMap[i]=b}});if(blocks.length)throw Error('Ada JIKA yang belum ditutup dengan AKHIR JIKA.');
+let active=[];while(pc<lines.length){if(++steps>2000)throw Error('Program dihentikan karena batas langkah tercapai.');let l=lines[pc],s=l.raw;
+if(/^(ALGORITMA\b|SELESAI$|AKHIR ALGORITMA$)/i.test(s)){pc++;continue}
+let im=s.match(/^JIKA\s+(.+)\s+MAKA$/i);if(im){let b=ifMap[pc];let parentRun=active.every(x=>x.run);let cond=parentRun?!!evaluate(im[1],vars):false;active.push({run:parentRun&&cond, parent:parentRun, block:b});pc++;continue}
+if(/^JIKA TIDAK$/i.test(s)){let a=active[active.length-1];a.run=a.parent&&!a.run;pc++;continue}
+if(/^AKHIR JIKA$/i.test(s)){active.pop();pc++;continue}
+if(!active.every(x=>x.run)){pc++;continue}
+let m=s.match(/^TULIS\s+(.+)$/i);if(m){let vals=splitArgs(m[1]).map(x=>evaluate(x,vars));out.push(vals.map(v=>v===undefined?'':String(v)).join(' '));pc++;continue}
+m=s.match(/^BACA\s+([A-Za-z_][\w]*)$/i);if(m){let el=document.getElementById('inp_'+m[1]);if(!el)throw Error('Input '+m[1]+' tidak ditemukan.');let v=el.value.trim();if(v==='')throw Error('Isi nilai untuk '+m[1]+' terlebih dahulu.');vars[m[1]]=/^-?\d+(\.\d+)?$/.test(v)?Number(v):v;pc++;continue}
+m=s.match(/^([A-Za-z_][\w]*)\s*(?:←|:=|=(?!=))\s*(.+)$/);if(m){vars[m[1]]=evaluate(m[2],vars);pc++;continue}
+throw Error('Baris '+l.n+' belum dikenali: '+s);
+}
+output.textContent=out.length?out.join('\n'):'Program selesai tanpa menghasilkan tulisan.';status('Berhasil dijalankan.');
+}catch(e){output.textContent='Program belum berhasil dijalankan.\n'+e.message;status('Periksa kode atau nilai input, lalu coba lagi.',true)}}
+</script>
+</body></html>
